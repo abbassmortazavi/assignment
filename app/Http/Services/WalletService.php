@@ -37,4 +37,45 @@ class WalletService
         $saderat = new Sterategy($this->saderat);
         return $mellat->getWallet() + $refah->getWallet() + $saderat->getWallet();
     }
+
+    /**
+     * @param $bank
+     * @return int|mixed|string
+     */
+    public function getUserWalletBank($bank): mixed
+    {
+        return match ($bank) {
+            "Mellat" => $this->_getWalletMellat(),
+            "Refah" => $this->_getWalletRefah(),
+            "Saderat" => $this->_getWalletSaderat(),
+            default => "undefined"
+        };
+    }
+
+    /**
+     * @return int
+     */
+    private function _getWalletMellat(): int
+    {
+        $mellat = new Sterategy($this->mellat);
+        return $mellat->getWallet();
+    }
+
+    /**
+     * @return int
+     */
+    private function _getWalletRefah(): int
+    {
+        $refah = new Sterategy($this->refah);
+        return $refah->getWallet();
+    }
+
+    /**
+     * @return mixed
+     */
+    private function _getWalletSaderat(): mixed
+    {
+        $saderat = new Sterategy($this->saderat);
+        return $saderat->getWallet();
+    }
 }

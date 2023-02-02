@@ -14,7 +14,17 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::get('wallet', [BankController::class, 'getSumWalletAllBankForUser']);
+
+Route::prefix('backend')
+    ->controller(BankController::class)
+    ->group(static function () {
+        Route::get('wallet', 'getSumWalletAllBankForUser');
+        Route::get('get-wallet/{bank}', 'getUserWalletBank');
+//        Route::get('refah', 'getWallet');
+//        Route::get('saderat', 'getWallet');
+    });
+
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });

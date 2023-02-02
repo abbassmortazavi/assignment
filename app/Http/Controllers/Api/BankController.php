@@ -10,6 +10,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BankRequest;
 use App\Http\Services\WalletService;
 use App\Http\Strategy\class\Refah;
 use App\Http\Strategy\class\Sterategy;
@@ -35,6 +36,19 @@ class BankController extends Controller
     {
         try {
             return $this->service->getSumWalletAllBankForUser();
+        } catch (Exception $exception) {
+            return $exception->getMessage();
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return Sterategy|string
+     */
+    public function getUserWalletBank(Request $request): string|Sterategy
+    {
+        try {
+            return $this->service->getUserWalletBank($request->bank);
         } catch (Exception $exception) {
             return $exception->getMessage();
         }
